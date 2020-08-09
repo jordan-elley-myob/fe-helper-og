@@ -68,7 +68,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hi</h1>
+        <h1>Amazing Suggestion Generator</h1>
         <TextArea
             onChange={(event) => {onTextAreaChange(event.target.value)}}
             value={textArea || ''}
@@ -95,7 +95,3 @@ function App() {
 
 export default App;
 
-// - id: studentLoanEndOfYear
-// label: Student loan end of year
-// format: '(1,234.10)'
-// visible: =IF(OR(studentLoanEndOfYear=0,studentLoanEndOfYear=NULL),FALSE,TRUE)

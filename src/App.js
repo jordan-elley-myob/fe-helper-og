@@ -9,6 +9,24 @@ function camelize(str) {
   }).replace(/\s+/g, '');
 }
 
+function interpretation(textRaw){
+  const lines = textRaw.split("\n");
+  return(<table border="1px">
+    <tr>
+      <th>label</th>
+      <th>Source</th>
+    </tr>
+    <tr>
+      <td>{lines[0]}</td>
+      <td>{lines[1]}</td>
+    </tr>
+    <tr>
+      <td>{lines[2]}</td>
+      <td>{lines[3]}</td>
+    </tr>
+  </table>)
+}
+
 function makeModel(textRaw){
   const lines = textRaw.split("\n");
   const layoutChildren = [(<h2>Some Entrys for model which might be useful</h2>)];
@@ -45,7 +63,7 @@ function makeModel(textRaw){
 
   return layoutChildren
 }
-
+//add a subtotal suggestion
 //make an option to set manual Id
 function makeLayout(textRaw){
   const lines = textRaw.split("\n");
@@ -77,16 +95,10 @@ function App() {
             rows={20}
             white-space='pre-wrap'
         />
-
-        <div>
-          {
-            makeLayout(textArea.replace(/^\s*\n/gm,'')) //removes empty lines
-          }
+        <div>{interpretation(textArea.replace(/^\s*\n/gm,''))}</div>
+        <div>{makeLayout(textArea.replace(/^\s*\n/gm,''))}
         </div>
-        <div>
-          {
-            makeModel(textArea.replace(/^\s*\n/gm,'')) //removes empty lines
-          }
+        <div>{makeModel(textArea.replace(/^\s*\n/gm,''))}
         </div>
       </header>
     </div>

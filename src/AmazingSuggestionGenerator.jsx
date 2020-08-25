@@ -6,7 +6,8 @@ export default class AmazingSuggestionGenerator extends React.Component {
         super(props);
         this.state = {
             tableColumns: 2,
-            lines: []
+            lines: [],
+            textArea: '',
         };
     }
 
@@ -36,7 +37,7 @@ interpretation = (textRaw) => {
 
 makeModel = (textRaw) => {
     const lines = textRaw.split("\n");
-    const layoutChildren = [(<h2>Some Entrys for model which might be useful</h2>)];
+    const layoutChildren = [(<h2>Some Entry's for model which might be useful</h2>)];
     for (let i = 0; i < lines.length; i+=2) {
         const id = this.camelize(lines[i]);
         const child = (
@@ -64,7 +65,7 @@ makeModel = (textRaw) => {
             <div>
                 <p>{id}: <br/>
                     source: forms/tax-forms-nz.*/{id}</p>
-            </div>)
+            </div>);
         layoutChildren.push(child)
     }
 
@@ -89,23 +90,22 @@ makeLayout =(textRaw)=>{
 };
 
     render() {
-        const [textArea, onTextAreaChange] = React.useState(''); //needs to be returned, cant be called here
         return (
             <div className="App">
                 <header className="App-header">
                     <h1>Amazing Suggestion Generator</h1>
                     <TextArea
-                        onChange={(event) => {onTextAreaChange(event.target.value)}}
-                        value={textArea || ''}
+                        onChange={(event) => {this.setState({textArea: event.target.value})}}
+                        value={this.state.textArea || ''}
                         name="default"
                         label="Dynamic List Data- Label- Amount"
                         rows={20}
                         white-space='pre-wrap'
                     />
-                    <div>{this.interpretation(textArea.replace(/^\s*\n/gm,''))}</div>
-                    <div>{this.makeLayout(textArea.replace(/^\s*\n/gm,''))}
+                    <div>{this.interpretation(this.state.textArea.replace(/^\s*\n/gm,''))}</div>
+                    <div>{this.makeLayout(this.state.textArea.replace(/^\s*\n/gm,''))}
                     </div>
-                    <div>{this.makeModel(textArea.replace(/^\s*\n/gm,''))}
+                    <div>{this.makeModel(this.state.textArea.replace(/^\s*\n/gm,''))}
                     </div>
                 </header>
             </div>

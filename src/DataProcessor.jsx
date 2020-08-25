@@ -7,27 +7,27 @@ export default class DataProcessor extends React.Component{
         }).replace(/\s+/g, '');
     };
 
-    interpretation = (lines) => {
+    interpretation = (structuredData) => {
         return(<table border="1px">
             <tr>
                 <th>label</th>
                 <th>Source</th>
             </tr>
             <tr>
-                <td>{lines[0]}</td>
-                <td>{lines[1]}</td>
+                <td>{structuredData[0]?.label}</td>
+                <td>{structuredData[0]?.source}</td>
             </tr>
             <tr>
-                <td>{lines[2]}</td>
-                <td>{lines[3]}</td>
+                <td>{structuredData[1]?.label}</td>
+                <td>{structuredData[1]?.source}</td>
             </tr>
         </table>)
     };
 
-    makeModel = (lines) => {
+
+makeModel = (structuredData) => {
         const layoutChildren = [(<h2>Some Entry's for model which might be useful</h2>)];
-        for (let i = 0; i < lines.length; i+=2) {
-            const id = this.camelize(lines[i]);
+    for(const [id, value] of Object.entries(structuredData)) {
             const child = (
                 <div>
                     <p>{id}: <br/>
@@ -36,23 +36,22 @@ export default class DataProcessor extends React.Component{
             layoutChildren.push(child)
         }
         layoutChildren.push(<h2>Other suggestions</h2>);
-        for (let i = 1; i < lines.length; i+=2) {
-            const id =lines[i];
+    for(const [id, value] of Object.entries(structuredData)) {
+        console.log(value);
             const child = (
                 <div>
-                    <p>{id}: <br/>
+                    <p>{value.source}: <br/>
                         type: number</p>
                 </div>);
             layoutChildren.push(child)
         }
         layoutChildren.push(<h2>Source suggestions</h2>);
 
-        for (let i = 1; i < lines.length; i+=2) {
-            const id =lines[i];
+    for(const [id, value] of Object.entries(structuredData)) {
             const child = (
                 <div>
-                    <p>{id}: <br/>
-                        source: forms/tax-forms-nz.*/{id}</p>
+                    <p>{value.source}: <br/>
+                        source: forms/tax-forms-nz.*/{value.source}</p>
                 </div>);
             layoutChildren.push(child)
         }
@@ -61,13 +60,13 @@ export default class DataProcessor extends React.Component{
     };
 
 
-    makeLayout =(lines)=>{
+
+    makeLayout =(structuredData)=>{
         const layoutChildren = [(<h1>Layout Children</h1>)];
-        for (let i = 0; i < lines.length; i+=2){
-            const id = this.camelize(lines[i]);
+        for(const [id, value] of Object.entries(structuredData)) {
             const child =(<div>
                 <p>- id: {id} <br/>
-                    label: {lines[i]}<br/>
+                    label: {value.label}<br/>
                     format: '(1,234.10)'<br/>
                     visible: =IF(OR({id}=0,{id}=NULL),FALSE,TRUE)</p>
             </div>);
@@ -82,7 +81,7 @@ export default class DataProcessor extends React.Component{
             const id = this.camelize(lines[i]);
             data[id] = {
                 label: lines[i],
-                sources: [lines[i+1]]
+                source: lines[i+1]
             }
         }
         return data;
@@ -92,8 +91,8 @@ export default class DataProcessor extends React.Component{
     getListOfLines = text => this.removeBlankLines(text).split("\n");
 
     processedData = () =>{
-        const processedText = this.getListOfLines(this.props.textArea);
-        console.log(this.createDataStructure(processedText));
+        let processedText = this.getListOfLines(this.props.textArea);
+        processedText = (this.createDataStructure(processedText));
         return (<div>
             <div>{this.interpretation(processedText)}</div>
             <div>{this.makeLayout(processedText)}</div>

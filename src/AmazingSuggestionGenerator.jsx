@@ -89,25 +89,36 @@ makeLayout =(textRaw)=>{
     return layoutChildren
 };
 
+processedData = () =>{
+    return (<div>
+        <div>{this.interpretation(this.state.textArea.replace(/^\s*\n/gm,''))}</div>
+        <div>{this.makeLayout(this.state.textArea.replace(/^\s*\n/gm,''))}
+        </div>
+        <div>{this.makeModel(this.state.textArea.replace(/^\s*\n/gm,''))}
+        </div>
+    </div>)
+};
+
+textInput = () => {
+    return(<TextArea
+        onChange={(event) => {this.setState({textArea: event.target.value})}}
+        value={this.state.textArea || ''}
+        name="default"
+        label="Dynamic List Data- Label- Amount"
+        rows={20}
+        white-space='pre-wrap'
+    />)
+}
+
     render() {
         return (
             <div className="App">
                 <header className="App-header">
                     <h1>Amazing Suggestion Generator</h1>
-                    <TextArea
-                        onChange={(event) => {this.setState({textArea: event.target.value})}}
-                        value={this.state.textArea || ''}
-                        name="default"
-                        label="Dynamic List Data- Label- Amount"
-                        rows={20}
-                        white-space='pre-wrap'
-                    />
-                    <div>{this.interpretation(this.state.textArea.replace(/^\s*\n/gm,''))}</div>
-                    <div>{this.makeLayout(this.state.textArea.replace(/^\s*\n/gm,''))}
-                    </div>
-                    <div>{this.makeModel(this.state.textArea.replace(/^\s*\n/gm,''))}
-                    </div>
                 </header>
+                    {this.textInput()}
+                    {this.processedData()}
+
             </div>
         );
     }

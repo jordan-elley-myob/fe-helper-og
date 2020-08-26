@@ -24,13 +24,16 @@ textInput = () => {
 };
 
     render() {
+        const text = this.textInput();
         return (
             <div className="App">
                 <header className="App-header">
                     <h1>Amazing Suggestion Generator</h1>
                 </header>
-                    {this.textInput()}
+                <body>
+                    {text}
                     <DataProcessor textArea={this.state.textArea}/>
+                </body>
             </div>
         );
     }

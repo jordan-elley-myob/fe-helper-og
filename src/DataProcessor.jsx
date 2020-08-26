@@ -8,23 +8,6 @@ export default class DataProcessor extends React.Component{
         }).replace(/\s+/g, '');
     };
 
-    interpretation = (structuredData) => {
-        return(<table border="1px">
-            <tr>
-                <th>label</th>
-                <th>Source</th>
-            </tr>
-            <tr>
-                <td>{structuredData[0]?.label}</td>
-                <td>{structuredData[0]?.source}</td>
-            </tr>
-            <tr>
-                <td>{structuredData[1]?.label}</td>
-                <td>{structuredData[1]?.source}</td>
-            </tr>
-        </table>)
-    };
-
 
 makeModel = (structuredData) => {
         const layoutChildren = [(<h2>Some Entry's for model which might be useful</h2>)];

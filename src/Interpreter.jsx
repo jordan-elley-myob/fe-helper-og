@@ -3,9 +3,9 @@ import React from "react";
 export default class Interpreter extends React.Component{
     render(){
     const structuredData= this.props.data;
-    const rowEntrys =[];
+    const rowEntry =[];
         for(const [id, value] of Object.entries(structuredData)) {
-            rowEntrys.push(
+            rowEntry.push(
                 <tr>
                     <td>{id}</td>
                     <td>{value.label}</td>
@@ -21,7 +21,7 @@ export default class Interpreter extends React.Component{
                 <th>label</th>
                 <th>Source</th>
             </tr>
-                {rowEntrys}
+                {rowEntry}
         </table>)
     }
 }

@@ -3,18 +3,25 @@ import React from "react";
 export default class Interpreter extends React.Component{
     render(){
     const structuredData= this.props.data;
-        return(<table border="1px">
+    const rowEntrys =[];
+        for(const [id, value] of Object.entries(structuredData)) {
+            rowEntrys.push(
+                <tr>
+                    <td>{id}</td>
+                    <td>{value.label}</td>
+                    <td>{value.source}</td>
+                </tr>
+
+            )
+        }
+        return(
+            <table border="1px">
             <tr>
+                <th>id</th>
                 <th>label</th>
                 <th>Source</th>
             </tr>
-            <tr>
-                <td>{structuredData[0]?.label}</td>
-                <td>{structuredData[0]?.source}</td>
-            </tr>
-            <tr>
-                <td>{structuredData[1]?.label}</td>
-                <td>{structuredData[1]?.source}</td>
-            </tr>
-        </table>)}
+                {rowEntrys}
+        </table>)
+    }
 }

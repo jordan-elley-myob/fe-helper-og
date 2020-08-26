@@ -1,4 +1,5 @@
 import React from "react";
+import Interpreter from "./Interpreter";
 
 export default class DataProcessor extends React.Component{
     camelize = (str) => {
@@ -37,7 +38,6 @@ makeModel = (structuredData) => {
         }
         layoutChildren.push(<h2>Other suggestions</h2>);
     for(const [id, value] of Object.entries(structuredData)) {
-        console.log(value);
             const child = (
                 <div>
                     <p>{value.source}: <br/>
@@ -94,7 +94,7 @@ makeModel = (structuredData) => {
         let processedText = this.getListOfLines(this.props.textArea);
         processedText = (this.createDataStructure(processedText));
         return (<div>
-            <div>{this.interpretation(processedText)}</div>
+            <Interpreter data={processedText}/>
             <div>{this.makeLayout(processedText)}</div>
             <div>{this.makeModel(processedText)}</div>
         </div>)
